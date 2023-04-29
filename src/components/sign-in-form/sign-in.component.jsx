@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState ,useContext} from "react";
+import {userContextStorage} from '../../contexts/user.context'
 import {
   signsInWithEmailAndPassword,
   signInWithGooglePopup,
@@ -18,23 +19,24 @@ const SignInForm = () => {
   const { email, password } = formatField;
 
   const logGoogleUser = async () => {
-  await signInWithGooglePopup();
-    
-    
+   await signInWithGooglePopup();
+
   };
+
+  const resetFormaFields = () => {
+    setFormatField(defaultFormatFields)
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormatField({ ...formatField, [name]: value });
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signsInWithEmailAndPassword(email, password);
-      
+ await signsInWithEmailAndPassword(email, password);
+ resetFormaFields()
 
-      console.log(response);
     } catch (error) {
         switch(error.code){
             case "auth/user-not-found":

@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
-import {UserContextBuiltComponent} from "./contexts/user.context";
+import { UserContextBuiltComponent } from "./contexts/user.context";
+import { CategoriesProvider } from "./contexts/categories.context";
+import { CartProvider } from "./contexts/cart.context";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -13,7 +15,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserContextBuiltComponent>
-        <App />
+        <CategoriesProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </CategoriesProvider>
       </UserContextBuiltComponent>
     </BrowserRouter>
   </React.StrictMode>
