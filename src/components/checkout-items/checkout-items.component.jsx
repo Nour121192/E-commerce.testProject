@@ -1,4 +1,4 @@
-import Button from "../button/button.component";
+import Button,{Button_Types} from "../button/button.component";
 import { useContext } from "react";
 import { CartStorage } from "../../contexts/cart.context";
 
@@ -18,7 +18,7 @@ const CheckOutItems = ({ item: { name, imageUrl, price, quantity,id } }) => {
         <span className="increment" onClick={incriment}>{` >`}</span>
       </div>
       <span className="price">{price}</span>
-      <Button buttonType="inverted"
+      <Button buttonType={Button_Types.inverted}
         children={"X"}
         onClick={removeFromCartItem}/>
     </div>

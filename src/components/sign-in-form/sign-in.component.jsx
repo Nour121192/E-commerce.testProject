@@ -6,7 +6,7 @@ import {
   creatUserDocumentFromAuth,
 } from "../../utiles/firebase/firebase.utiles";
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button, {Button_Types} from "../button/button.component";
 import "./sign-in.styles.scss";
 
 const defaultFormatFields = {
@@ -79,7 +79,7 @@ const SignInForm = () => {
           <Button type="submit" children={"sign in"} />
           <Button
             type="button"
-            buttonType={"google"}
+            buttonType={Button_Types.google}
             onClick={logGoogleUser}
             children={"Google Sign In"}
           />

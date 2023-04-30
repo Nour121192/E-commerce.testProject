@@ -1,7 +1,7 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Fragment, useContext} from "react";
 import { ReactComponent as CrwnLogo } from "../../assests/crown.svg";
-import "./navigation.styles.scss";
+import {NavigationContainer,LogoContainer,NavLinksContainer,NavLink} from "./navigation.styles.jsx";
 
 import { userContextStorage } from "../../contexts/user.context";
 import { CartStorage } from "../../contexts/cart.context";
@@ -21,29 +21,31 @@ const {isDropped} = useContext(CartStorage)
 
   return (
     <Fragment>
-      <div className="navigation">
-        <Link to="/" className="logo-container">
+      <NavigationContainer>
+        <LogoContainer to="/">
           <CrwnLogo className="Logo" />
-        </Link>
-        <div className="nav-links-container">
-          <Link to="/shop" className="nav-link">
+        </LogoContainer>
+        <NavLinksContainer>
+          <NavLink to="/shop" >
             SHOP
-          </Link>
+          </NavLink>
           {!currentUser && (
-            <Link to="/Auth" className="Auth">
+            <NavLink to="/Auth" >
               SIGN IN
-            </Link>
+            </NavLink>
           )}
           {currentUser && (
-            <Link to="/" className="Auth" onClick={sign_out_handler}>
+            <NavLink to="/"  onClick={sign_out_handler}>
+              <NavLink as="span">
               SIGN OUT
-            </Link>
+              </NavLink>
+            </NavLink>
           )}
           {currentUser && (<CartIcon/>)}
         
-        </div>
+        </NavLinksContainer>
        { isDropped && (<CartDropdowen/>)}
-      </div>
+      </NavigationContainer>
       <Outlet />
     </Fragment>
   );
