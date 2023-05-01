@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useReducer } from "react";
 
 export const CartStorage = createContext();
 
@@ -48,11 +48,23 @@ const removingItems = (id,cartItems)=> {
   return cartItems.filter((item)=> item.id !== id)
 }
 
+const reducer = (state,action) => {
+  const {isDropped} = state
+  switch(action.type){
+    case "toggle":
+      return {isDropped:!isDropped}
+    default:
+      throw console.error(action.type);
+  }
+
+}
+
 export const CartProvider = ({ children }) => {
-  const [isDropped, setIsDropped] = useState(false);
+  // const [isDropped, setIsDropped] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
-
+  const [{isDropped},dispatch] = useReducer(reducer,{isDropped:false})
+  const setIsDropped = ()=> dispatch({type:isDropped})
 
   const plusMinusHandler = (action,id) => {
    setCartItems(IncriAndDecriQuantity(action,id,cartItems))
