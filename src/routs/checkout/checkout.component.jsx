@@ -4,11 +4,11 @@ import CheckOutItems from "../../components/checkout-items/checkout-items.compon
 
 
 const CheckoutPage = () => {
-    const {cartItems} =  useContext(CartStorage)
+    const {cartItems,totalPrice} =  useContext(CartStorage)
     return(
         <div className="check-out-container">
             {cartItems.map((item)=><CheckOutItems item={item} key={item.id}/>)}
-            <span>{cartItems.reduce((perv,curr) => {return perv + (curr.price*curr.quantity)},0 )}</span>
+            <span>{totalPrice}</span>
         </div>
     )
 }

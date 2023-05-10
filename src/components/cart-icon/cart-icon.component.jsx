@@ -4,12 +4,10 @@ import { CartStorage } from "../../contexts/cart.context";
 import { useContext } from "react";
 
 const CartIcon = () => {
-const {setIsDropped,isDropped,cartItems} = useContext(CartStorage)
-
-    let itemsCount = cartItems.reduce((per,curr)=>{ return per + curr.quantity},0)
+const {setIsDropped,isDropped,itemsCount} = useContext(CartStorage)
     
     const cart_dropdowen_handler = () => {
-        setIsDropped(!isDropped)
+        setIsDropped()
         }
     return(
         <div className="cart-icon-container" onClick={cart_dropdowen_handler}>

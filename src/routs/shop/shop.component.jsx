@@ -3,9 +3,22 @@ import { Route, Routes } from "react-router-dom";
 import CategoriesPreview from "../categories-preview/categories-preview.component";
 import Category from "../category/category.component";
 
-const Shop = () => {
+import { useEffect } from "react";
+import { getCollectionAndDocuments } from "../../utiles/firebase/firebase.utiles";
+import { setcategoriesMap } from "../../store/categories/categories.action";
+import { useDispatch } from "react-redux";
 
- 
+const Shop = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const getCategoriesMap = async () => {
+      const categoriesMap = await getCollectionAndDocuments();
+      console.log(categoriesMap);
+      dispatch(setcategoriesMap(categoriesMap));
+    };
+    getCategoriesMap();
+  }, []);
 
   return(
     <Routes>

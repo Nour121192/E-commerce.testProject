@@ -1,0 +1,1 @@
+export const categories_types = {set_categories_type:"categories/set_categories_type"}

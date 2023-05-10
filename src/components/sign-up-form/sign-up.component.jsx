@@ -3,7 +3,9 @@ import {signUpWithEmailAndPassword,creatUserDocumentFromAuthSignUp,creatUserDocu
 import FormInput from '../form-input/form-input.component'
 import Button from "../button/button.component"
 import './sign-up.styles.scss'
-import {userContextStorage} from '../../contexts/user.context'
+// import {userContextStorage} from '../../contexts/user.context'
+import { setCurrentUser } from "../../store/user/user.actions"
+import { useDispatch } from "react-redux"
 
 const defaultFormatFields = {
     displayName:"",
@@ -17,8 +19,8 @@ const SignUpForm = () => {
 const [formatField,setFormatField] = useState(defaultFormatFields)
 const {displayName,email,password,confirmPassword} = formatField
 
-const {setCurrentUser} = useContext(userContextStorage)
-
+// const {setCurrentUser} = useContext(userContextStorage)
+const dispatch = useDispatch()
 
     const handleChange =  (event) =>{
         const {name,value}=event.target
@@ -36,7 +38,7 @@ const {setCurrentUser} = useContext(userContextStorage)
         const res = await signUpWithEmailAndPassword(email,password)
         const toDataBase =  await creatUserDocumentFromAuth(res.user,{displayName})
 
-        setCurrentUser(res.user)
+        dispatch(setCurrentUser(res.user))
 
         console.log(res)
         }catch(error){
