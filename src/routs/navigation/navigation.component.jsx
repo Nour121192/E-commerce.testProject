@@ -8,6 +8,7 @@ import { CartStorage } from "../../contexts/cart.context";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/user/user.selection";
 // import { UseCurUser } from "../../store/user/user.actions";
+import { useCartItems } from "../../store/cart/cart.selection";
 
 import { SignOut } from "../../utiles/firebase/firebase.utiles";
 
@@ -19,7 +20,7 @@ const Navigation = () => {
   // const { currentUser } = useContext(userContextStorage);
 const currentUser = useSelector(selectUser)
 
-const {isDropped} = useContext(CartStorage)
+const {isDropped} = useCartItems()
 
   const sign_out_handler = async (event) => {
     await SignOut();

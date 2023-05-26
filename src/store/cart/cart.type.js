@@ -1,0 +1,1 @@
+export const cart_types = {isDropped:'isDropped',cartItemsAndIsDropped:"cartItems/isdropped"}

@@ -1,13 +1,24 @@
 import { ReactComponent as ShoppingBag } from "../../assests/shopping-bag.svg";
 import './cart-icon.styles.scss'
-import { CartStorage } from "../../contexts/cart.context";
-import { useContext } from "react";
+// import { CartStorage } from "../../contexts/cart.context";
+// import { useContext } from "react";
+
+import { useCartItems } from "../../store/cart/cart.selection";
+
 
 const CartIcon = () => {
-const {setIsDropped,isDropped,itemsCount} = useContext(CartStorage)
     
+    const {isDropped , setDropped, itemsCount } = useCartItems()
+    
+// const {itemsCount} = useContext(CartStorage)
     const cart_dropdowen_handler = () => {
-        setIsDropped()
+        console.log(isDropped)
+        // dispatch({
+        //     type: cart_types.cartItemsAndIsDropped,
+        //     payload:{isDropped:!isDropped}
+        //   })
+    //    const iif = (()=> dispatch)()
+    setDropped(isDropped)
         }
     return(
         <div className="cart-icon-container" onClick={cart_dropdowen_handler}>

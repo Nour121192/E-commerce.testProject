@@ -59,13 +59,14 @@ export const getCollectionAndDocuments = async () => {
   const q = query(collectionRef)
   const querySnapShot = await getDocs(q)
 
-const categoryMap =  querySnapShot.docs.reduce((acc,docSnapShot)=> {
-  const {items,title} = docSnapShot.data()
-  acc[title.toLowerCase()] = items
-  return acc
+  return querySnapShot.docs.map((docSnapShot)=> docSnapShot.data())
 
-}, {})
+// .reduce((acc,docSnapShot)=> {
+//   const {items,title} = docSnapShot.data()
+//   acc[title.toLowerCase()] = items
+//   return acc
 
+// }, {})
 // const eachCategory = querySnapShot.docs.forEach((docSnapshot) => {
 //   const {items,title} = docSnapshot.data()
 //   const document = {}
@@ -75,7 +76,6 @@ const categoryMap =  querySnapShot.docs.reduce((acc,docSnapShot)=> {
 //   return document
 // })
 
-  return categoryMap
 }
 
 

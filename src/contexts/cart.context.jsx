@@ -43,34 +43,35 @@ const removingItems = (id, cartItems) => {
 
 // ...reducers
 const Actions = {
-  TogglingCart: "toggling cart drop dowen",
+  // TogglingCart: "toggling cart drop dowen",
   addingTheCart: "addingTheCart",
-  removingItem: "removingItem",
-  plusMinus: "plusMinus",
-  itemsCount: "itemsCount",
-  TotalPrice: "total price",
+  // removingItem: "removingItem",
+  // plusMinus: "plusMinus",
+  // itemsCount: "itemsCount",
+  // TotalPrice: "total price",
 };
 
 const reducer = (state, action) => {
-  const { isDropped } = state;
+  // const { isDropped } = state;
   switch (action.type) {
-    case Actions.TogglingCart:
-      return { ...state, isDropped: !isDropped };
+    // case Actions.TogglingCart:
+    //   return { ...state, isDropped: action.payload };
     case Actions.addingTheCart:
-      return { ...state, cartItems: action.payload };
-    case Actions.removingItem:
-      return {
-        ...state,
-        cartItems: removingItems(action.payload, state.cartItems),
-      };
-    case Actions.plusMinus:
-      return { ...state, cartItems: action.payload };
-    case Actions.itemsCount:
-      return { ...state, itemsCount: action.payload };
-    case Actions.TotalPrice:
-      return { ...state, totalPrice: action.payload };
+      return { ...state, ...action.payload };
+    // case Actions.removingItem:
+    //   return {
+    //     ...state,
+    //     cartItems: removingItems(action.payload, state.cartItems),
+    //   };
+    // case Actions.plusMinus:
+    //   return { ...state, cartItems: action.payload };
+    // case Actions.itemsCount:
+    //   return { ...state, itemsCount: action.payload };
+    // case Actions.TotalPrice:
+    //   return { ...state, totalPrice: action.payload };
     default:
-      throw console.error(action.type);
+      // throw console.error(action.type);
+      return state
   }
 };
 
@@ -100,22 +101,37 @@ export const CartProvider = ({ children }) => {
       totalPrice: 0,
     });
 
-  useEffect(() => {
-    const ResultItems = cartItems.reduce((per, curr) => {
+  // useEffect(() => {
+  //   const ResultItems = cartItems.reduce((per, curr) => {
+  //     return per + curr.quantity;
+  //   }, 0);
+  //   dispatch({
+  //     type: Actions.itemsCount,
+  //     payload: ResultItems,
+  //   });
+  // }, [cartItems]);
+
+  // useEffect(() => {
+  //   const Total = cartItems.reduce((perv, curr) => {
+  //     return perv + curr.price * curr.quantity;
+  //   }, 0);
+  //   dispatch({ type: Actions.TotalPrice, payload: Total });
+  // }, [cartItems]);
+
+
+  // ...... function which update total count , item price, dispatch
+
+  const updateCartItems = (cartItems) => {
+    const itemsCount = cartItems.reduce((per, curr) => {
       return per + curr.quantity;
     }, 0);
-    dispatch({
-      type: Actions.itemsCount,
-      payload: ResultItems,
-    });
-  }, [cartItems]);
 
-  useEffect(() => {
-    const Total = cartItems.reduce((perv, curr) => {
+    const totalPrice = cartItems.reduce((perv, curr) => {
       return perv + curr.price * curr.quantity;
     }, 0);
-    dispatch({ type: Actions.TotalPrice, payload: Total });
-  }, [cartItems]);
+
+    dispatch({ type: Actions.addingTheCart, payload: {cartItems,itemsCount,totalPrice} })
+  }
 
   // const updateCartReducer = (newCartItems) => {
   //   const Total = newCartItems.reduce((perv, curr) => {
@@ -131,26 +147,29 @@ export const CartProvider = ({ children }) => {
 
   
   // cart Drop Dowen functionality by use reduce
-  const setIsDropped = () => dispatch({ type: Actions.TogglingCart });
+  const setIsDropped = () => dispatch({ type: Actions.addingTheCart,payload:{isDropped:!isDropped} });
 
   // cartitems functionality by use reduce
   const plusMinusHandler = (action, id) => {
-    dispatch({
-      type: Actions.plusMinus,
-      payload: IncriAndDecriQuantity(action, id, cartItems),
-    });
+    // dispatch({
+    //   type: Actions.plusMinus,
+    //   payload: IncriAndDecriQuantity(action, id, cartItems),
+    // });
+    updateCartItems(IncriAndDecriQuantity(action, id, cartItems))
   };
 
   const removeItem = (id) => {
-    dispatch({ type: Actions.removingItem, payload: id });
+    // dispatch({ type: Actions.removingItem, payload: id });
     // dispatch({ type: "update cart", payload:updateCartReducer(removingItems(id,cartItems))})
+    updateCartItems(removingItems(id,cartItems))
   };
 
   const addItemToCart = (productToAdd) => {
-    dispatch({
-      type: Actions.addingTheCart,
-      payload: AddCartItem(cartItems, productToAdd),
-    });
+    // dispatch({
+    //   type: Actions.addingTheCart,
+    //   payload: AddCartItem(cartItems, productToAdd),
+    // });
+    updateCartItems(AddCartItem(cartItems, productToAdd))
   };
 
   const value = {

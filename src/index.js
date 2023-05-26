@@ -3,10 +3,11 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 // import { UserContextBuiltComponent } from "./contexts/user.context";
-import { CategoriesProvider } from "./contexts/categories.context";
-import { CartProvider } from "./contexts/cart.context";
+// import { CategoriesProvider } from "./contexts/categories.context";
+// import { CartProvider } from "./contexts/cart.context";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { store,persistor } from "./store/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -17,11 +18,13 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
         {/* <CategoriesProvider> */}
-          <CartProvider>
+          {/* <CartProvider> */}
             <App />
-          </CartProvider>
+          {/* </CartProvider> */}
         {/* </CategoriesProvider> */}
+        </PersistGate >
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

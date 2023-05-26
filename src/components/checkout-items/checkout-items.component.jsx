@@ -1,9 +1,10 @@
 import Button,{Button_Types} from "../button/button.component";
-import { useContext } from "react";
-import { CartStorage } from "../../contexts/cart.context";
+// import { useContext } from "react";
+// import { CartStorage } from "../../contexts/cart.context";
+import { useCartItems } from "../../store/cart/cart.selection";
 
 const CheckOutItems = ({ item: { name, imageUrl, price, quantity,id } }) => {
-    const {plusMinusHandler,removeItem} = useContext(CartStorage)
+    const {plusMinusHandler,removeItem} = useCartItems()
     const incriment = () => plusMinusHandler("plus",id)
     const decriment = () => plusMinusHandler("minus",id)
     const removeFromCartItem = () => removeItem(id)

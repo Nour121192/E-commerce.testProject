@@ -1,5 +1,5 @@
 import {categories_types} from './categories.type'
-const categories_instial_state = {categoriesMap:{}}
+const categories_instial_state = {categoriesMap:[]}
 
 export const CategoriesReducer = (state = categories_instial_state , action = {}) => {
     switch(action.type){
