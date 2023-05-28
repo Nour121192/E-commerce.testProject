@@ -2,22 +2,23 @@
 // import { Fragment, useContext } from "react";
 import CategoryPreview from "../../components/category-Preview/category-Preview.component";
 
-import { select_categoriesMap } from "../../store/categories/categories.selection";
+import { select_categoriesMap,select_categoriesMap_Loading } from "../../store/categories/categories.selection";
 import { useSelector } from "react-redux";
+import Spinner from '../../components/spinner/spinner.component'
 
 const CategoriesPreview = () => {
   // const { categoriesMap } = useContext(categoriesStorage);
   const categoriesMap = useSelector(select_categoriesMap)
-
+  const isLoading =  useSelector(select_categoriesMap_Loading)
   return (
     <>
-      {Object.keys(categoriesMap).map((title) => {
+      {isLoading?<Spinner/>:(Object.keys(categoriesMap).map((title) => {
         const products = categoriesMap[title];
 
         return (
           <CategoryPreview title={title} products={products} key={title} />
         );
-      })}
+      }))}
     </>
   );
 };

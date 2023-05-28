@@ -5,6 +5,7 @@ import { rootReducer } from "./root-reducer";
 import { persistReducer,persistStore } from "redux-persist";
 import storage from 'redux-persist/lib/storage'
 
+import thunk from "redux-thunk";
 // ....middle ware setup
 const myMiddleWare = (store) => (next) => (action) =>{
 if (!action.type){
@@ -20,7 +21,7 @@ next(action)
 console.log("after dispatch" , store.getState())
 }
 
-const middleWares = [myMiddleWare]
+const middleWares = [logger,thunk,myMiddleWare]
 const composesEnhancer = compose(applyMiddleware(...middleWares))
 // .................
 
