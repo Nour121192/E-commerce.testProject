@@ -18,7 +18,7 @@ const CartIcon = () => {
         //     payload:{isDropped:!isDropped}
         //   })
     //    const iif = (()=> dispatch)()
-    setDropped(isDropped)
+    setDropped(!isDropped)
         }
     return(
         <div className="cart-icon-container" onClick={cart_dropdowen_handler}>

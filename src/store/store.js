@@ -1,9 +1,11 @@
-import { createStore,applyMiddleware,compose } from "redux";
-import logger from "redux-logger";
+// import { createStore,applyMiddleware,compose } from "redux";
+// import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
 
-import { persistReducer,persistStore } from "redux-persist";
-import storage from 'redux-persist/lib/storage'
+// import { persistReducer,persistStore } from "redux-persist";
+// import storage from 'redux-persist/lib/storage'
+
+import { configureStore } from "@reduxjs/toolkit";
 
 // ....middle ware setup
 const myMiddleWare = (store) => (next) => (action) =>{
@@ -21,17 +23,29 @@ console.log("after dispatch" , store.getState())
 }
 
 const middleWares = [myMiddleWare]
-const composesEnhancer = compose(applyMiddleware(...middleWares))
+// const composesEnhancer = compose(applyMiddleware(...middleWares))
 // .................
 
 
-const PersistConfig = {
-key:'root',
-storage,
-whitelist: ['cartItems'] 
-}
+// const PersistConfig = {
+// key:'root',
+// storage,
+// whitelist: ['cartItems'] 
+// }
 
-const persistedReducer = persistReducer(PersistConfig,rootReducer)
-export const store = createStore(persistedReducer,undefined,composesEnhancer)
+// const persistedReducer = persistReducer(PersistConfig,rootReducer)
+// export const store = createStore(persistedReducer,undefined,composesEnhancer)
 
-export const persistor = persistStore(store)
+// export const persistor = persistStore(store)
+
+// ..... rtk
+export const store = configureStore({
+    reducer:rootReducer,
+    middleware:(defaultMiddlewares) => defaultMiddlewares({
+        serializableCheck:{
+            ignoredActions:["user/setCurrentUser"],
+            ignoredPaths:['user.currentUser']
+        }
+    }).concat(middleWares)
+    
+})

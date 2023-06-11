@@ -1,6 +1,6 @@
 import { useEffect} from "react";
 import { onAuthStateChangedListener,creatUserDocumentFromAuth } from "./utiles/firebase/firebase.utiles";
-import { setCurrentUser } from "./store/user/user.actions";
+import { setCurrentUser } from "./store/user/user.reducer";
 import { useDispatch } from "react-redux";
 // import { UseCurUser } from "./store/user/user.actions";
 
@@ -19,7 +19,11 @@ const App = () => {
       if(user){
          creatUserDocumentFromAuth()
       }
-      
+
+      // to avoid edit in serializable in config we can reback an object instead of constructor obj,
+      // .. as serializable means a valuse that can not be stingified.
+      // this is the way
+      // const serializableObj = ({accessToken,email}) => ({accessToken,email})(user)
       dispatch(setCurrentUser(user))
     })
     return unsubscribe

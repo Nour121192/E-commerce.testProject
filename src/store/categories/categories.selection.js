@@ -19,3 +19,8 @@ export const select_categoriesMap = createSelector(
   }, {})
 }
 );
+
+export const isLoading = createSelector(
+  [categoriesArray],
+  (state) => state.isLoading
+)

@@ -6,8 +6,8 @@ import "./index.css";
 // import { CategoriesProvider } from "./contexts/categories.context";
 // import { CartProvider } from "./contexts/cart.context";
 import { Provider } from "react-redux";
-import { store,persistor } from "./store/store";
-import { PersistGate } from "redux-persist/integration/react";
+import { store } from "./store/store";
+// import { PersistGate } from "redux-persist/integration/react";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -18,13 +18,13 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
+        {/* <PersistGate persistor={persistor} loading={null}> */}
         {/* <CategoriesProvider> */}
           {/* <CartProvider> */}
             <App />
           {/* </CartProvider> */}
         {/* </CategoriesProvider> */}
-        </PersistGate >
+        {/* </PersistGate > */}
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

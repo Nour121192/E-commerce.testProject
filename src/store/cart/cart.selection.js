@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setCartItems, setIsDropped } from "./cart.action";
+import { setCartItems, setIsDropped } from './cart.reducer';
 import { createSelector } from "reselect";
 
 export const cartItemsSelection = (state) => state.cartItems.cartItems;
