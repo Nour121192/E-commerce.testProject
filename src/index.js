@@ -8,6 +8,8 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 // import { PersistGate } from "redux-persist/integration/react";
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "./utiles/stripe/stripe.utiles";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -21,7 +23,9 @@ root.render(
         {/* <PersistGate persistor={persistor} loading={null}> */}
         {/* <CategoriesProvider> */}
           {/* <CartProvider> */}
+          <Elements stripe={stripePromise}>
             <App />
+            </Elements>
           {/* </CartProvider> */}
         {/* </CategoriesProvider> */}
         {/* </PersistGate > */}
